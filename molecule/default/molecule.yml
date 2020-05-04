@@ -1,0 +1,54 @@
+---
+
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: centos6
+    image: centos:6
+    groups:
+      - molecule_hosts
+  - name: centos7
+    image: centos:7
+    groups:
+      - molecule_hosts
+  - name: fedora29
+    image: fedora:29
+    groups:
+      - molecule_hosts
+  - name: fedora30
+    image: fedora:30
+    groups:
+      - molecule_hosts
+provisioner:
+  name: ansible
+  ansible_args:
+    - --inventory=${ANSIBLE_INVENTORY}
+    - --vault-password-file=${ANSIBLE_VAULT_PASSWORD_FILE:-/etc/hostname}
+  inventory:
+    group_vars:
+      molecule_hosts:
+        ansible_user: root
+  lint:
+    name: ansible-lint
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

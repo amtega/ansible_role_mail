@@ -1,2 +1,30 @@
 ---
 # Role tasks
+
+- name: Send mail
+  mail:
+    attach: "{{ mail_message.attach | default(omit) }}"
+    bcc: "{{ mail_message.bcc | default(omit) }}"
+    body: "{{ mail_message.body | default(omit) }}"
+    cc: "{{ mail_message.cc | default(omit) }}"
+    charset: "{{ mail_message.charset | default(omit) }}"
+    from: "{{ mail_message.from | default(omit) }}"
+    headers: "{{ mail_message.headers | default(omit) }}"
+    host: "{{ mail_message.host | default(omit) }}"
+    password: "{{ mail_message.password | default(omit) }}"
+    port: "{{ mail_message.port | default(omit) }}"
+    secure: "{{ mail_message.secure | default(omit) }}"
+    subject: "{{ mail_message.subject | default(omit) }}"
+    subtype: "{{ mail_message.subtype | default(omit) }}"
+    timeout: "{{ mail_message.timeout | default(omit) }}"
+    to: "{{ mail_message.to | default(omit) }}"
+    username: "{{ mail_message.username | default(omit) }}"
+  loop: "{{ mail_messages }}"
+  loop_control:
+    loop_var: mail_message_item
+    label: "{{ mail_message.subject }}"
+  no_log: "{{ mail_no_log | default(true) }}"
+  vars:
+    mail_message: "{{ mail_defaults | combine(mail_message_item) }}"
+  tags:
+    - role::mail

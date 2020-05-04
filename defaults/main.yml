@@ -1,2 +1,36 @@
 ---
 # Role default lower priority variables
+
+# List of dicts with messages to send. The dicts can have this attributes,
+# with the same meaning that the ones expected by the ansible mail module:
+#
+# {
+#   attach: <list>     # List of pathnames of files to attach to the message
+#   bcc: <list>        # The email-address(es) the mail is being BCC
+#   body: <string>     # The body of the email being sent
+#   cc: <list>         # The email-address(es) the mail is being copied to
+#   charset: <string>  # The character set of email being sent
+#   from: <string>     # The email-address the mail is sent from
+#   headers: <list>    # A list of headers which should be added to the message
+#   host: <string>     # The mail server
+#   password: <string> # If SMTP requires password
+#   port: <integer>    # The mail server port
+#   secure: <string>   # Can be always, never, starttls, try
+#   subject: <string>  # The subject of the email being sent
+#   subtype: <string>  # Can be html or plain
+#   timeout: <integer> # Sets the timeout in seconds for connection attempts
+#   to: <list>         # The email-address(es) the mail is being sent to.
+#   username: <string> # If SMTP requires username.
+# }
+
+mail_messages: []
+
+# Dictionary with the defaults options to use if no other ones are specified in
+# the `mail_messages` variable. The members of the dict are the same attributes
+# that the ones detailed for `mail_messages`
+
+mail_defaults: {}
+
+# Hide sensitive information
+
+mail_no_log: yes
