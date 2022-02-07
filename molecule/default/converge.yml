@@ -5,3 +5,9 @@
   gather_facts: no
   roles:
     - role: amtega.mail
+  vars:
+    ansible_python_interpreter: >-
+      {{ (inventory_hostname
+          in groups.molecule_hosts_centos_6
+             + groups.molecule_hosts_centos_7)
+         | ternary("/usr/bin/python", "/usr/bin/python3") }}
