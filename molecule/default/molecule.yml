@@ -32,15 +32,15 @@ platforms:
       - molecule_hosts_centos
       - molecule_hosts_centos_8
   - name: "fedora34-${INSTANCE_UUID:-1}"
-    image: fedora:34
+    image: quay.io/fedora/fedora:34
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
       - molecule_hosts_fedora_34
   - name: "fedora35-${INSTANCE_UUID:-1}"
-    image: fedora:35
+    image: quay.io/fedora/fedora:35
     groups:
-      - molecule_hosts      
+      - molecule_hosts
       - molecule_hosts_fedora
       - molecule_hosts_fedora_35
 provisioner:
